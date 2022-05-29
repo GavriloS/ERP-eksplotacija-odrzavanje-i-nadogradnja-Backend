@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TeretanaApi.Data.Interfaces;
 using TeretanaApi.Entities;
+using TeretanaApi.Model.Product;
 using TeretanaApi.Model.Suplement;
 
 namespace TeretanaApi.Controllers
@@ -42,7 +43,7 @@ namespace TeretanaApi.Controllers
 
             var resultSuplements = new SuplementsDto()
             {
-                Suplements = mapper.Map<List<SuplementBasicDto>>(suplements),
+                Suplements = mapper.Map<List<ProductDto>>(suplements),
                 CurrentPage = page,
                 TotalPages = (int)pageCount
             };
@@ -123,7 +124,7 @@ namespace TeretanaApi.Controllers
         {
             try
             {
-                var oldSuplement = await suplementRepository.GetSuplementByIdAsync(suplement.SuplementId);
+                var oldSuplement = await suplementRepository.GetSuplementByIdAsync(suplement.Id);
 
                 if(oldSuplement == null)
                 {

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TeretanaApi.Data.Interfaces;
 using TeretanaApi.Entities;
 using TeretanaApi.Model.Equipment;
+using TeretanaApi.Model.Product;
 
 namespace TeretanaApi.Controllers
 {
@@ -40,7 +41,7 @@ namespace TeretanaApi.Controllers
 
             var equipmentsDto = new EquipmentsDto()
             {
-                Equipments = mapper.Map<List<EquipmentBasicDto>>(equipments),
+                Equipments = mapper.Map<List<ProductDto>>(equipments),
                 CurrentPage = page,
                 TotalPages = (int)totalPages
             };
@@ -119,7 +120,7 @@ namespace TeretanaApi.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Equipment>> UpdateEquipment(EquipmentUpdateDto equipment) 
         {
-            var oldEquipment = await equipmentRepository.GetEquipmentByIdAsync(equipment.EquipmentId);
+            var oldEquipment = await equipmentRepository.GetEquipmentByIdAsync(equipment.Id);
 
             if(oldEquipment == null)
             {

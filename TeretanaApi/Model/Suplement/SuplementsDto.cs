@@ -1,8 +1,10 @@
-﻿namespace TeretanaApi.Model.Suplement
+﻿using TeretanaApi.Model.Product;
+
+namespace TeretanaApi.Model.Suplement
 {
     public class SuplementsDto
     {
-        public List<SuplementBasicDto> Suplements { get; set; } = new List<SuplementBasicDto>();
+        public List<ProductDto> Suplements { get; set; } = new List<ProductDto>();
         public int CurrentPage { get; set; }
         public int TotalPages { get; set; }
     }

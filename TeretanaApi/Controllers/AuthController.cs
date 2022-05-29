@@ -6,6 +6,7 @@ using TeretanaApi.Entities;
 using TeretanaApi.Model.User;
 using Microsoft.AspNetCore.Http;
 using System.Text;
+using TeretanaApi.Model.Auth;
 
 namespace TeretanaApi.Controllers
 {
@@ -40,7 +41,7 @@ namespace TeretanaApi.Controllers
         
 
         [HttpPost("authorize")]
-        public async Task<IActionResult> Authorize(UserAuthDto request)
+        public async Task<ActionResult<AuthResponseDto>> Authorize(UserAuthDto request)
         {
             var user = await userRepository.GetUserByEmailAsync(request.Email);
 
@@ -60,9 +61,12 @@ namespace TeretanaApi.Controllers
                 return new UnauthorizedResult();
             }
 
+            var authResponse = new AuthResponseDto();
+            authResponse.Token = token;
+            authResponse.User = mapper.Map<UserBasicDto>(user);
+            authResponse.ExpiresIn = 5 * 3600;
 
-
-            return new OkObjectResult(token);
+            return new OkObjectResult(authResponse);
         }
     }
 }

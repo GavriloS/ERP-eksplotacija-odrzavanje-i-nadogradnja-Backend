@@ -36,6 +36,15 @@ namespace TeretanaApi.Data
             return await _context.Baskets.Include(b => b.User).Include(b => b.Suplements).ThenInclude(s => s.Suplement).Include(b => b.Equipments).ThenInclude(e => e.Equipment).ToListAsync();
         }
 
+        public async Task<List<Basket>> GetBasketsByUser(Guid userId)
+        {
+            return await _context.Baskets.Include(b => b.User).Include(b => b.Suplements).ThenInclude(s => s.Suplement).Include(b => b.Equipments).ThenInclude(e => e.Equipment).Where(b => b.UserId == userId).ToListAsync();
+
+        }
+        public async Task<Basket> GetOpenBasketByUser(Guid userId)
+        {
+            return await _context.Baskets.Include(b => b.User).Include(b => b.Suplements).ThenInclude(s => s.Suplement).Include(b => b.Equipments).ThenInclude(e => e.Equipment).FirstOrDefaultAsync(b => (b.UserId == userId && b.IsCompleted == false));
+        }
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();

@@ -58,6 +58,37 @@ namespace TeretanaApi.Controllers
             }
             return new OkObjectResult(mapper.Map<BasketDto>(basket));
         }
+
+
+        [HttpGet("user/{userId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Admin,User")]
+        public async Task<ActionResult<List<BasketDto>>> GetBasketByUser(Guid userId,bool open = false)
+        {
+
+            Basket basket = null;
+            List<Basket> baskets = null;
+            if (open)
+            {
+                basket = await this.basketRepository.GetOpenBasketByUser(userId);
+                if (basket == null)
+                {
+                    return new NotFoundResult();
+                }
+                return new OkObjectResult(mapper.Map<BasketDto>(basket));
+            }
+            else
+            {
+                baskets = await this.basketRepository.GetBasketsByUser(userId);
+                if (baskets == null)
+                {
+                    return new NotFoundResult();
+                }
+                return new OkObjectResult(mapper.Map<List<BasketDto>>(baskets));
+            }
+        }
+
         [HttpPost]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -101,7 +132,7 @@ namespace TeretanaApi.Controllers
 
                 string location = linkGenerator.GetPathByAction("GetBasketById", "Basket", new { basketId = newBasket.BasketId });
 
-                return new CreatedResult(location, newBasket);
+                return new CreatedResult(location, mapper.Map<BasketDto>(newBasket));
             }
             catch (Exception)
             {

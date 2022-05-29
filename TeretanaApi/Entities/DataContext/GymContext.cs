@@ -65,7 +65,9 @@ namespace TeretanaApi.Entities.DataContext
                     Name = "30 treninga",
                     NumberOfTrainings = 30,
                     NumberOfGroupTrainings = 0,
-                    Price = 3000.00
+                    Price = 3000.00,
+                    PriceId = "",
+                    ProductId = ""
                 });
 
             builder.Entity<MembershipType>()
@@ -75,6 +77,8 @@ namespace TeretanaApi.Entities.DataContext
                    Name = "10 grupnih treninga",
                    NumberOfTrainings = 0,
                    NumberOfGroupTrainings = 10,
+                   PriceId = "",
+                   ProductId = "",
                    Price = 2000.00
                });
 
@@ -121,6 +125,8 @@ namespace TeretanaApi.Entities.DataContext
                     Manufacturer = "The Nutrition",
                     Quantity = 10,
                     Price = 7390.00,
+                    PriceId = "",
+                    ProductId = "",
                     SuplementTypeId = Guid.Parse("645b8bb6-0fa8-4082-8c8c-7fef241b7bce")
 
                 });
@@ -133,6 +139,8 @@ namespace TeretanaApi.Entities.DataContext
                    Manufacturer = "The Nutrition",
                    Quantity = 15,
                    Price = 3600.00,
+                   PriceId = "",
+                   ProductId = "",
                    SuplementTypeId = Guid.Parse("645b8bb6-0fa8-4082-8c8c-7fef241b7bce")
 
                });
@@ -146,6 +154,8 @@ namespace TeretanaApi.Entities.DataContext
                 Manufacturer = "The Nutrition",
                 Quantity = 15,
                 Price = 3600.00,
+                PriceId = "",
+                ProductId = "",
                 SuplementTypeId = Guid.Parse("96fbee9a-2887-4cec-8f8b-a185da06d29b")
 
             });
@@ -172,6 +182,8 @@ namespace TeretanaApi.Entities.DataContext
                     Manufacturer = "Kina",
                     Quantity = 10,
                     Price = 350.00,
+                    PriceId = "",
+                    ProductId = "",
                     EquipmentTypeId = Guid.Parse("3e25fa5b-5717-4722-9d33-d05db2f5733b")
 
                 });
@@ -184,6 +196,8 @@ namespace TeretanaApi.Entities.DataContext
                    Manufacturer = "Capriolo",
                    Quantity = 8,
                    Price = 2600.00,
+                   PriceId = "",
+                   ProductId = "",
                    EquipmentTypeId = Guid.Parse("acc47e70-1611-4691-b2d2-81eb1ed0d30c")
 
                });

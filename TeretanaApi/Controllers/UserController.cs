@@ -27,7 +27,7 @@ namespace TeretanaApi.Controllers
         [HttpHead]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,User,Trainer")]
         public async Task<ActionResult<List<UserBasicDto>>> GetUsers()
         {
             var users = await userRepository.GetUsersAsync();

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\DELL\\source\\repos\\TeretanaApi\\TeretanaApi.csproj": {}
+    "C:\\Users\\DELL\\Documents\\Agilni\\ERP-eksplotacija-odrzavanje-i-nadogradnja-Backend\\TeretanaApi\\TeretanaApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\DELL\\source\\repos\\TeretanaApi\\TeretanaApi.csproj": {
+    "C:\\Users\\DELL\\Documents\\Agilni\\ERP-eksplotacija-odrzavanje-i-nadogradnja-Backend\\TeretanaApi\\TeretanaApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DELL\\source\\repos\\TeretanaApi\\TeretanaApi.csproj",
+        "projectUniqueName": "C:\\Users\\DELL\\Documents\\Agilni\\ERP-eksplotacija-odrzavanje-i-nadogradnja-Backend\\TeretanaApi\\TeretanaApi.csproj",
         "projectName": "TeretanaApi",
-        "projectPath": "C:\\Users\\DELL\\source\\repos\\TeretanaApi\\TeretanaApi.csproj",
+        "projectPath": "C:\\Users\\DELL\\Documents\\Agilni\\ERP-eksplotacija-odrzavanje-i-nadogradnja-Backend\\TeretanaApi\\TeretanaApi.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DELL\\source\\repos\\TeretanaApi\\obj\\",
+        "outputPath": "C:\\Users\\DELL\\Documents\\Agilni\\ERP-eksplotacija-odrzavanje-i-nadogradnja-Backend\\TeretanaApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -83,6 +83,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.1, )"
+            },
+            "Stripe.net": {
+              "target": "Package",
+              "version": "[39.115.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

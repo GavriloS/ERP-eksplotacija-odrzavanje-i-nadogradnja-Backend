@@ -4,12 +4,14 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Stripe;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
 using TeretanaApi.Auth;
 using TeretanaApi.Data;
 using TeretanaApi.Data.Interfaces;
 using TeretanaApi.Entities.DataContext;
+using TeretanaApi.Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -65,6 +67,9 @@ builder.Services.AddSwaggerGen(opt =>
     opt.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
+//Stripe
+ConfigurationManager configuration = builder.Configuration;
+builder.Services.Configure<StripeSettings>(configuration.GetSection("Stripe"));
 
 //JWT
 var key = "test_secure_key_5302_test";
@@ -106,8 +111,15 @@ builder.Services.AddScoped<IBasketSuplementRepository, BasketSuplementRepository
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDbContext<GymContext>();
+
+builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+{
+    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
+
 var app = builder.Build();
 
+StripeConfiguration.ApiKey = configuration.GetValue<string>("Stripe:SecretKey");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -119,5 +131,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+//app.UseCors("corsapp");
+app.UseCors(x => x.AllowAnyHeader()
+      .AllowAnyMethod()
+      .WithOrigins("http://localhost:4200"));
 
 app.Run();

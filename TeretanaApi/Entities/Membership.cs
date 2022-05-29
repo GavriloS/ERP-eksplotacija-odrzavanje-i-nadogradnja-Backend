@@ -10,6 +10,7 @@ namespace TeretanaApi.Entities
         public Guid UserId { get; set; }
         public User User { get; set; }
         public Guid MembershipTypeId { get; set; }
+        
         public MembershipType MembershipType { get; set; } 
     }
 }

@@ -12,6 +12,7 @@ namespace TeretanaApi.Profiles
                   .ForMember(
                 dest => dest.UserType,
                 opt => opt.MapFrom(src => src.UserType));
+
             CreateMap<User, User>();
             CreateMap<UserCreationDto,User>()
                 .ForMember(

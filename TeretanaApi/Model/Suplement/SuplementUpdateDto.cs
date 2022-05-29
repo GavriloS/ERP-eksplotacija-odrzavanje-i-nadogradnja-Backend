@@ -2,13 +2,15 @@
 {
     public class SuplementUpdateDto
     {
-        public Guid SuplementId { get; set; }
+        public Guid Id { get; set; }
 
         public String Name { get; set; }
         public String Description { get; set; }
         public String Manufacturer { get; set; }
         public int Quantity { get; set; }
         public double Price { get; set; }
-        public Guid SuplementTypeId { get; set; }
+        public string PriceId { get; set; }
+        public string ProductId { get; set; }
+        public Guid TypeId { get; set; }
     }
 }

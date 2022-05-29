@@ -8,6 +8,8 @@
         public string Manufacturer { get; set; }
         public int Quantity { get; set; }
         public double Price { get; set; }
-        public Guid EquipmentTypeId { get; set; }
+        public string PriceId { get; set; }
+        public string ProductId { get; set; }
+        public Guid TypeId { get; set; }
     }
 }

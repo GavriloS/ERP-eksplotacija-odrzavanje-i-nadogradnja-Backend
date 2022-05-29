@@ -8,6 +8,8 @@ namespace TeretanaApi.Data.Interfaces
         Task<Basket> GetBasketByIdAsync(Guid basketId);
         Task DeleteBasketByIdAsync(Guid basketId);
         Task<Basket> CreateBasketAsync(Basket basket);
+        Task<List<Basket>> GetBasketsByUser(Guid userId);
+        Task<Basket> GetOpenBasketByUser(Guid userId);
         Task SaveChangesAsync();
     }
 }

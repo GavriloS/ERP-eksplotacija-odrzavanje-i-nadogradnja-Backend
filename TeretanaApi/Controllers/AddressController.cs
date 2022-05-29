@@ -61,7 +61,8 @@ namespace TeretanaApi.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [AllowAnonymous]
+       // [Authorize(Roles = "Admin,User,Trainer")]
+       [AllowAnonymous]
         public async Task<ActionResult<Address>> CreateAddress(AddressCreationDto address)
         {
             try

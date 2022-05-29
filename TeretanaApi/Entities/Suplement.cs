@@ -12,6 +12,8 @@ namespace TeretanaApi.Entities
         public String Manufacturer { get; set; }
         public int Quantity { get; set; }
         public double Price { get; set; }
+        public string PriceId { get; set; }
+        public string ProductId { get; set; }
         public Guid SuplementTypeId { get; set; }
         public SuplementType SuplementType { get; set; }
 
