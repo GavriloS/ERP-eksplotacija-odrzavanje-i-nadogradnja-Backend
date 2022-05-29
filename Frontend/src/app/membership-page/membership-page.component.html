@@ -1,0 +1,27 @@
+<br>
+<br>
+<div class="flex justify-content-center flex-column">
+  <h1 class=" flex  justify-content-center">Samo trening</h1>
+  <div class="flex flex-row justify-content-center flex-wrap card-container blue-container">
+      <span class="m-5  flex align-items-center justify-content-center" *ngFor="let membershipType of membershipTypesTraining">
+        <app-membership-card class="cursor-pointer" [membershipType]="membershipType"></app-membership-card>
+    </span>
+  </div>
+</div>
+
+<div class="flex justify-content-center flex-column">
+  <h1 class=" flex  justify-content-center">Samo grupni</h1>
+  <div class="flex flex-row justify-content-center flex-wrap card-container blue-container">
+      <span class="m-5  flex align-items-center justify-content-center" *ngFor="let membershipType of membershipTypesGroupTraining">
+        <app-membership-card class="cursor-pointer" [membershipType]="membershipType"></app-membership-card>
+    </span>
+  </div>
+</div>
+<div class="flex justify-content-center flex-column">
+  <h1 class=" flex  justify-content-center">Mix</h1>
+  <div class="flex flex-row justify-content-center flex-wrap card-container blue-container">
+      <span class="m-5  flex align-items-center justify-content-center" *ngFor="let membershipType of membershipTypesMix">
+        <app-membership-card class="cursor-pointer" [membershipType]="membershipType"></app-membership-card>
+    </span>
+  </div>
+</div>

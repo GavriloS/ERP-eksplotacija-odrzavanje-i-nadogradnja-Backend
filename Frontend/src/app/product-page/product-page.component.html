@@ -1,0 +1,57 @@
+<div *ngIf="role === 'Admin'" class="mt-5 flex justify-content-center">
+  <p-button
+    label="Nov proizvod"
+    routerLink="/add/product"
+    icon="pi pi-plus"
+    class="mr-2"
+  ></p-button>
+</div>
+
+<div class="mx-5">
+  <br />
+  <br />
+  <div class="grid">
+    <div class="col-3">
+      <p-card
+        styleClass="mx-3"
+        [style]="{ 'background-color': 'lightblue', 'border-radius': '25px' }"
+      >
+        <p-dropdown
+          [options]="categories"
+          styleClass="dropdown"
+          (onChange)="onDropDownChange($event)"
+          [(ngModel)]="selectedCategory"
+          placeholder="Izaberi kategoriju"
+          optionLabel="name"
+        ></p-dropdown>
+      </p-card>
+    </div>
+
+    <div class="col-9">
+      <div class="flex flex row mx-3 flex-wrap column-gap-3">
+        <span *ngFor="let product of products">
+          <div class="my-3">
+            <app-product-card
+              [routerLink]="['/product', product.id]"
+              [queryParams]="{ type: product.type }"
+              [product]="product"
+            ></app-product-card>
+          </div>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="col-3"></div>
+    <div class="col-9">
+      <div>
+        <p-paginator
+          [rows]="currentRows"
+          [totalRecords]="totalPages"
+          [rowsPerPageOptions]="rowsPerPageOptions"
+          (onPageChange)="onPageChange($event)"
+        ></p-paginator>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+<div *ngIf="role === 'Admin'" class="mt-5 ml-5 flex">
+  <p-button
+    label="Dodaj"
+    [routerLink]="['/add', 'quantity', id]"
+    [queryParams]="{ type: type }"
+    icon="pi pi-plus"
+    class="mr-2"
+  ></p-button>
+</div>
+
+<div class="flex justify-content-center mt-5">
+  <div class="flex flex-column">
+    <p-card [style]="{ 'border-radius': '20px', 'max-width': '25rem' }">
+      <h1>{{ product.name }}</h1>
+      <p>Proizvođač: {{ product.manufacturer }}</p>
+      <br />
+      <h2>Cena: {{ product.price }}</h2>
+
+      <span>Dostupnost: </span>
+      <span *ngIf="product.quantity > 0" [style]="{ color: 'green' }"
+        >Na stanju</span
+      >
+      <span *ngIf="product.quantity <= 0" [style]="{ color: 'salmon' }"
+        >Nije na stanju</span
+      >
+
+      <div
+        class="flex justify-content-between mt-5"
+        [style]="{ 'backround-color': 'red' }"
+      >
+        <div class="field">
+          <label for="vertical" style="display: block">Količina</label>
+          <p-inputNumber
+            [(ngModel)]="quantity"
+            [min]="1"
+            [max]="product.quantity"
+            [size]="2"
+            [showButtons]="true"
+            buttonLayout="horizontal"
+            spinnerMode="horizontal"
+            inputId="horizontal"
+            decrementButtonClass="p-button-secondary"
+            incrementButtonClass="p-button-secondary"
+            incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"
+          >
+          </p-inputNumber>
+        </div>
+        <button
+          pButton
+          pRipple
+          type="button"
+          (click)="addToCart()"
+          label="Dodaj u korpu"
+          class="p-button-rounded basketButton mt-5"
+        ></button>
+      </div>
+      <hr />
+    </p-card>
+  </div>
+</div>
+<br />
+<br />
+<div class="grid">
+  <span class="col-3"></span>
+  <div class="col-6 descriptionGrid">
+    <div class="flex flex-column">
+      <h2>Opis:</h2>
+      <p class="descriptionText">{{ product.description }}</p>
+    </div>
+  </div>
+</div>

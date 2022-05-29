@@ -1,0 +1,36 @@
+<div class="mt-5 flex justify-content-center">
+  <div class="flex flex-column">
+    <h1>Dodaj proizvod u magacin</h1>
+
+    <p>Naziv: {{ name }}</p>
+
+    <div class="flex gap-5">
+      <p>Količina</p>
+      <div class="field">
+        <label for="vertical" style="display: block"></label>
+        <p-inputNumber
+          [(ngModel)]="quantity"
+          [min]="1"
+          [size]="2"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          spinnerMode="horizontal"
+          inputId="horizontal"
+          decrementButtonClass="p-button-secondary"
+          incrementButtonClass="p-button-secondary"
+          incrementButtonIcon="pi pi-plus"
+          decrementButtonIcon="pi pi-minus"
+        >
+        </p-inputNumber>
+      </div>
+    </div>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Dodaj"
+      class="p-button-rounded p-button-success"
+      (click)="addQuantity()"
+    ></button>
+  </div>
+</div>

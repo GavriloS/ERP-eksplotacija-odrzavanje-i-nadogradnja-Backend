@@ -1,0 +1,55 @@
+<body class="flex justify-content-center flex-wrap">
+  <div class="flex flex-column">
+    <div class="card flex justify-content-center flex-wrap">
+      <p-card>
+        <form (submit)="onLogin(loginForm)" #loginForm="ngForm" class="p-3">
+          <span class="p-float-label">
+            <input
+              id="float-input"
+              name="email"
+              ngModel
+              #emailInput="ngModel"
+              type="email"
+              required
+              email
+              pInputText
+            />
+            <label for="float-input">Email</label>
+            <small
+              *ngIf="emailInput.invalid && emailInput.touched"
+              id="username2-help"
+              class="p-error block"
+              >Unesite celu Email adresu</small
+            >
+          </span>
+          <br />
+          <span class="p-float-label">
+            <input
+              id="float-input"
+              name="password"
+              type="password"
+              ngModel
+              #passwordInput="ngModel"
+              required
+              password
+              minlength="6"
+              pInputText
+            />
+            <label for="float-input">Password</label>
+            <small
+              *ngIf="passwordInput.invalid && passwordInput.touched"
+              id="username2-help"
+              class="p-error block"
+              >Šifra mora da sadrži više od 6 znakova</small
+            >
+          </span>
+          <br />
+          <p-button type="submit">Prijava</p-button>
+        </form>
+      </p-card>
+    </div>
+    <p class="register">
+      Nemate nalog? <a routerLink="/register">Registruj se</a>
+    </p>
+  </div>
+</body>

@@ -1,0 +1,12 @@
+
+<p-card [header]="membershipType.name"  [style]="{width: '360px'}" styleClass="p-card-shadow">
+  <ng-template pTemplate="header">
+
+  </ng-template>
+  <p class="price">{{membershipType.price}} RSD</p>
+  <p *ngIf="membershipType.numberOfTrainings>0">Broj treninga: {{membershipType.numberOfTrainings}}</p>
+  <p *ngIf="membershipType.numberOfGroupTrainings>0">Broj grupnih treninga: {{membershipType.numberOfGroupTrainings}}</p>
+  <ng-template pTemplate="footer">
+
+  </ng-template>
+</p-card>

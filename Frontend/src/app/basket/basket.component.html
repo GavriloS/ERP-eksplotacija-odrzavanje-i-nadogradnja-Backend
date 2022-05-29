@@ -1,0 +1,54 @@
+<div
+  class="grid mt-5"
+  *ngIf="basket.equipments.length > 0 || basket.suplements.length > 0"
+>
+  <div class="col-3"></div>
+  <div class="col-4">
+    <p><b>Proizvod</b></p>
+    <div *ngFor="let equipment of basket.equipments">
+      <p>{{ equipment.name }}</p>
+    </div>
+    <div *ngFor="let suplement of basket.suplements">
+      <p>{{ suplement.name }}</p>
+    </div>
+    <hr />
+  </div>
+  <div class="col-1">
+    <p><b>Količina</b></p>
+    <div *ngFor="let equipment of basket.equipments">
+      <p>{{ equipment.quantity }}</p>
+    </div>
+    <div *ngFor="let suplement of basket.suplements">
+      <p>{{ suplement.quantity }}</p>
+    </div>
+    <hr />
+  </div>
+  <div class="col-1">
+    <p><b>Cena</b></p>
+    <div *ngFor="let equipment of basket.equipments">
+      <p>{{ equipment.price * equipment.quantity }} RSD</p>
+    </div>
+    <div *ngFor="let suplement of basket.suplements">
+      <p>{{ suplement.price * suplement.quantity }} RSD</p>
+    </div>
+    <hr />
+    <p><b>Ukupna cena</b></p>
+    <p>{{ getTotalPrice() }} RSD</p>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Kupi"
+      class="p-button-rounded p-button-success"
+      (click)="proceedToPayment()"
+    ></button>
+  </div>
+</div>
+<div
+  class="flex justify-content-center"
+  *ngIf="basket.equipments.length == 0 && basket.suplements.length == 0"
+>
+  <div>
+    <h1>Korpa je prazna</h1>
+  </div>
+</div>

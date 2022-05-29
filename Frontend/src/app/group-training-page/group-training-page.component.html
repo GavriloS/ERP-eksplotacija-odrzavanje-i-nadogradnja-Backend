@@ -1,0 +1,10 @@
+
+<div class="mt-5 flex justify-content-center gap-5">
+  <div *ngFor="let groupTrainingType of groupTrainingTypes">
+    <app-group-training-card [groupTrainingType]="groupTrainingType"></app-group-training-card>
+  </div>
+</div>
+<br>
+<br>
+<full-calendar class="calendar" [options]="calendarOptions"></full-calendar>
+<p>Hello</p>
