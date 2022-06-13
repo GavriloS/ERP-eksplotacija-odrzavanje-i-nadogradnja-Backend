@@ -1,0 +1,76 @@
+<p-dialog
+  header="Suplement"
+  [(visible)]="showDialog"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+  (onHide)="closeDialog()"
+>
+  <div class="flex flex-column">
+    <div class="field">
+      <label for="firstName" class="block">Ime</label>
+      <input
+        id="firstName"
+        type="text"
+        aria-describedby="firstName"
+        pInputText
+        [(ngModel)]="user.firstName"
+      />
+    </div>
+    <div class="field">
+      <label for="lastName" class="block">Prezime</label>
+      <input
+        id="lastName"
+        type="text"
+        aria-describedby="lastName"
+        pInputText
+        [(ngModel)]="user.lastName"
+      />
+    </div>
+    <div class="field">
+      <label for="contact" class="block">Kontakt</label>
+      <input
+        id="contact"
+        type="text"
+        aria-describedby="contact"
+        pInputText
+        [(ngModel)]="user.contactNumber"
+      />
+    </div>
+    <div class="field">
+      <label for="email" class="block">Email</label>
+      <input
+        id="email"
+        type="email"
+        aria-describedby="email"
+        pInputText
+        [(ngModel)]="user.email"
+      />
+    </div>
+    <div class="field">
+      <label for="password" class="block">Šifra</label>
+      <input
+        id="password"
+        type="text"
+        aria-describedby="password"
+        pInputText
+        [(ngModel)]="user.password"
+      />
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="submit()"
+      label="Potvrdi"
+      styleClass="p-button-text"
+    ></p-button>
+    <p-button
+      icon="pi pi-check"
+      (click)="closeDialog()"
+      label="Otkaži"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>

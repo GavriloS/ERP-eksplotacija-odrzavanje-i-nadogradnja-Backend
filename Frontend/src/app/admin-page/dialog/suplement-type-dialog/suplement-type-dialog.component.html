@@ -1,0 +1,36 @@
+<p-dialog
+  header="Oprema"
+  [(visible)]="showDialog"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+  (onHide)="closeDialog()"
+>
+  <div class="flex flex-column">
+    <div class="field">
+      <label for="name" class="block">Naziv</label>
+      <input
+        id="name"
+        type="text"
+        aria-describedby="username1-help"
+        pInputText
+        [(ngModel)]="suplementType.name"
+      />
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="submit()"
+      label="Potvrdi"
+      styleClass="p-button-text"
+    ></p-button>
+    <p-button
+      icon="pi pi-check"
+      (click)="closeDialog()"
+      label="Otkaži"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>

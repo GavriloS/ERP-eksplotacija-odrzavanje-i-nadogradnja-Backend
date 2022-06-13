@@ -3,5 +3,7 @@ export interface MembershipType{
   name:string,
   numberOfTrainings:number,
   numberOfGroupTrainings:number,
-  price:number
+  price:number,
+  productId:string,
+  priceId:string
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, Subject } from 'rxjs';
+import { BehaviorSubject, map, Subject } from 'rxjs';
 import { Basket } from '../models/Basket.model';
 import { DetailedProduct } from '../models/DetailedProduct.model';
 import { User } from '../models/User.model';
@@ -13,7 +13,7 @@ import { BasketService } from './basket.service';
 })
 export class AuthService {
 
-  user = new Subject<User>();
+  user = new BehaviorSubject<User>(null);
   private token:string;
   private tokenExpirationTimer: any;
   public basket:Basket;
@@ -23,12 +23,13 @@ export class AuthService {
   constructor(private http: HttpClient,private router: Router,
               private basketService:BasketService) { }
 
-  signIn(email:string,password:string){
+  signIn(email:string,password:string):any{
     this.http.post<{token:string,user:User,expiresIn:number}>(
       'http://localhost:5189/api/auth/authorize',
       {email:email,
         password:password}
-    ).subscribe(res =>{
+    ).subscribe({
+      next: res =>{
       let expires = new Date(new Date().getTime() + res.expiresIn*1000);
       let user = new User(
         res.user.userId,
@@ -46,24 +47,26 @@ export class AuthService {
         res.token,
         expires
       );
-      //RIght now i dont store not finished baskets
-      // this.basketService.getOpenBasket(user.userId).subscribe(b =>{
-      //   if(!!b){
-      //     this.basket = b;
 
-      //   }
-      //   this.basket.user = user;
-      //   this.basket.userId = user.userId
-      // }).unsubscribe()
-      this.basket = {equipments:[],suplements:[],basketId:null,dateTimeOfPurchase:null,user:user,userId:user.userId,isCompleted:false}
+      this.basket = {products:[],basketId:null,dateTimeOfPurchase:null,user:user,userId:user.userId,isCompleted:false}
       this.user.next(user);
       this.autoLogout(res.expiresIn * 1000)
       this.token = res.token;
       this.role = JSON.parse(atob(this.token.split('.')[1]))['role']
 
+
       localStorage.setItem("userData",JSON.stringify(user));
+      if(this.role ==='Admin'){
+        this.router.navigate(["/admin"])
+      }else{
       this.router.navigate(["/"]);
-    })
+      }
+      return true;
+    },
+  error: e =>{
+    alert("Greška u e-mail adresi ili šifri")
+    return false;
+  }})
   };
 
   signUp(user:User){
@@ -159,39 +162,22 @@ export class AuthService {
 
   addProductToBasket(product:DetailedProduct,type:string,quantity:number){
     let isIn:boolean = false;
-    switch(type){
-      case 'e':
 
 
-
-        this.basket.equipments.forEach(e =>{
-          if(e.id == product.id){
-            e.quantity += quantity
-            isIn = true;
-          }
-        });
-        if(!isIn){
-          let p = product.clone();
-          p.quantity = quantity;
-          this.basket.equipments.push(p)
+      this.basket.products.forEach(p =>{
+        if(p.id == product.id){
+          p.quantity += quantity
+          isIn = true;
         }
+      });
+      if(!isIn){
+        let p = product.clone();
+        p.quantity = quantity;
+        this.basket.products.push(p)
+      }
 
-        break;
-      case 's':
-        this.basket.suplements.forEach(s => {
-          if(s.id == product.id){
-            s.quantity += quantity;
-            isIn = true
 
-          }
-        })
-        if(!isIn){
-          let p = product.clone();
-          p.quantity = quantity;
-          this.basket.suplements.push(p);
-        }
-        break;
-    }
+
 
     localStorage.setItem('basketData',JSON.stringify(this.basket));
   }

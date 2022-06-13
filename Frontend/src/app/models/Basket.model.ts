@@ -9,7 +9,6 @@ export interface Basket{
     user: User,
     userId:string,
     isCompleted: boolean,
-    equipments:DetailedProduct[],
-    suplements: DetailedProduct[]
+    products:DetailedProduct[]
 
 }

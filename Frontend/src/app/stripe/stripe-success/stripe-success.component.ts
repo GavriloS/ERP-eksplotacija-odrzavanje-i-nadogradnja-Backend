@@ -9,18 +9,12 @@ import { BasketService } from 'src/app/services/basket.service';
 })
 export class StripeSuccessComponent implements OnInit {
 
-  constructor(private authService:AuthService,
-              private basketService:BasketService) { }
+  constructor(private authService:AuthService) { }
 
   ngOnInit(): void {
-    console.log("komponenta");
-    this.authService.basket.dateTimeOfPurchase = new Date();
-    console.log(new Date());
-    this.basketService.postBasket(this.authService.basket).subscribe(b => {
-          console.log("Kupljeno")
-      this.authService.basket.equipments = []
-      this.authService.basket.suplements = []
-    })
+
+    this.authService.basket.products = []
+
 
   }
 

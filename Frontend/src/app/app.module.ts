@@ -14,6 +14,16 @@ import {InputTextModule} from 'primeng/inputtext';
 import {DropdownModule} from 'primeng/dropdown';
 import {PaginatorModule} from 'primeng/paginator';
 import {InputNumberModule} from 'primeng/inputnumber';
+import {SidebarModule} from 'primeng/sidebar';
+import {RippleModule} from 'primeng/ripple';
+import {TableModule} from 'primeng/table';
+import {DialogModule} from 'primeng/dialog';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import {ChartModule} from 'primeng/chart';
+import {DataViewModule} from 'primeng/dataview';
+import {ListboxModule} from 'primeng/listbox';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
 
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
@@ -39,6 +49,27 @@ import { StripeSuccessComponent } from './stripe/stripe-success/stripe-success.c
 import { StripeFailureComponent } from './stripe/stripe-failure/stripe-failure.component';
 import { AddProductComponent } from './form/add-product/add-product.component';
 import { AddQuantityComponent } from './form/add-quantity/add-quantity.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
+import { ChartPageComponent } from './admin-page/chart-page/chart-page.component';
+import { TablePageComponent } from './admin-page/table-page/table-page.component';
+import { EquipmentDialogComponent } from './admin-page/dialog/equipment-dialog/equipment-dialog.component';
+import { DeleteDialogComponent } from './admin-page/dialog/delete-dialog/delete-dialog.component';
+import { SuplementDialogComponent } from './admin-page/dialog/suplement-dialog/suplement-dialog.component';
+import { TableWithoutButtonsComponent } from './admin-page/table-without-buttons/table-without-buttons.component';
+import { BasketDialogComponent } from './admin-page/dialog/basket-dialog/basket-dialog.component';
+import { UserPageComponent } from './user-page/user-page.component';
+import { MembershipTypeDialogComponent } from './admin-page/dialog/membership-type-dialog/membership-type-dialog.component';
+import { SuccessMembershipComponent } from './stripe/success-membership/success-membership.component';
+import { BasketTableComponent } from './user-page/basket-table/basket-table.component';
+import { GrouptrainingTypeDialogComponent } from './admin-page/dialog/grouptraining-type-dialog/grouptraining-type-dialog.component';
+import { EquipmentTypeDialogComponent } from './admin-page/dialog/equipment-type-dialog/equipment-type-dialog.component';
+import { SuplementTypeDialogComponent } from './admin-page/dialog/suplement-type-dialog/suplement-type-dialog.component';
+import { AddGroupTrainingDialogComponent } from './group-training-page/dialog/add-group-training-dialog/add-group-training-dialog.component';
+import { ParticipateDialogComponent } from './group-training-page/dialog/participate-dialog/participate-dialog.component';
+import { GroupTrainingTableComponent } from './user-page/group-training-table/group-training-table.component';
+import { UserDialogComponent } from './admin-page/dialog/user-dialog/user-dialog.component';
+
+
 
 
 
@@ -68,7 +99,26 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     StripeSuccessComponent,
     StripeFailureComponent,
     AddProductComponent,
-    AddQuantityComponent
+    AddQuantityComponent,
+    AdminPageComponent,
+    ChartPageComponent,
+    TablePageComponent,
+    EquipmentDialogComponent,
+    DeleteDialogComponent,
+    SuplementDialogComponent,
+    TableWithoutButtonsComponent,
+    BasketDialogComponent,
+    UserPageComponent,
+    MembershipTypeDialogComponent,
+    SuccessMembershipComponent,
+    BasketTableComponent,
+    GrouptrainingTypeDialogComponent,
+    EquipmentTypeDialogComponent,
+    SuplementTypeDialogComponent,
+    AddGroupTrainingDialogComponent,
+    ParticipateDialogComponent,
+    GroupTrainingTableComponent,
+    UserDialogComponent
 
 
 
@@ -90,9 +140,20 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     BrowserAnimationsModule,
     PaginatorModule,
     InputNumberModule,
-    FullCalendarModule
+    FullCalendarModule,
+    SidebarModule,
+    RippleModule,
+    TableModule,
+    DialogModule,
+    InputTextareaModule,
+    ChartModule,
+    DataViewModule,
+    ListboxModule,
+    ConfirmDialogModule,
+
+
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

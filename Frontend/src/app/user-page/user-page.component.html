@@ -1,0 +1,12 @@
+<div class="flex flex-row justify-content-center">
+  <div class="flex flex-column justify-content-center">
+    <h1>{{ user.firstName + " " + user.lastName }}</h1>
+    <br />
+    <h3>Broj treninga: {{ user.numberOfTrainings }}</h3>
+    <h3>Broj grupnih treninga: {{ user.numberOfGroupTraings || 0 }}</h3>
+    <app-basket-table [user]="user"></app-basket-table>
+    <app-group-training-table
+      *ngIf="role === 'Trainer'"
+    ></app-group-training-table>
+  </div>
+</div>

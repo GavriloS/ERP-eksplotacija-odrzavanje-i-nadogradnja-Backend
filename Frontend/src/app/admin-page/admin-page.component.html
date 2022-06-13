@@ -1,0 +1,112 @@
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <h2>Admin panel</h2>
+  </div>
+  <div class="p-toolbar-group-right">
+    <button
+      (click)="onLogout()"
+      pButton
+      label="Izloguj se"
+      class="p-button-outlined p-button-rounded p-button-warning headerButton"
+    ></button>
+  </div>
+</p-toolbar>
+<br />
+<div class="grid">
+  <div class="col-3">
+    <div class="grid-border">
+      <div>
+        <div
+          (click)="changeToChart()"
+          pRipple
+          class="section-border cursor-pointer purple"
+        >
+          <a>Početna</a>
+        </div>
+      </div>
+      <div>
+        <div
+          (click)="changeTable('Equipment')"
+          pRipple
+          class="section-border cursor-pointer purple"
+        >
+          <a>Oprema</a>
+        </div>
+      </div>
+      <div>
+        <div
+          (click)="changeTable('EquipmentType')"
+          pRipple
+          class="section-border cursor-pointer purple"
+        >
+          <a>Tipovi opreme</a>
+        </div>
+      </div>
+      <div>
+        <div
+          (click)="changeTable('Suplement')"
+          pRipple
+          class="section-border cursor-pointer purple"
+        >
+          <a>Suplementi</a>
+        </div>
+      </div>
+      <div>
+        <div
+          (click)="changeTable('SuplementType')"
+          pRipple
+          class="section-border cursor-pointer purple"
+        >
+          <a>Tipovi suplemenata</a>
+        </div>
+      </div>
+      <div>
+        <div
+          (click)="changeTableWithoutButtons('Basket')"
+          pRipple
+          class="section-border cursor-pointer purple"
+        >
+          <a>Transakcije</a>
+        </div>
+      </div>
+      <div>
+        <div
+          (click)="changeTable('MembershipType')"
+          pRipple
+          class="section-border cursor-pointer purple"
+        >
+          <a>Tipovi Članarina</a>
+        </div>
+      </div>
+      <div>
+        <div
+          (click)="changeTable('GroupTrainingType')"
+          pRipple
+          class="section-border cursor-pointer purple"
+        >
+          <a>Tipovi Grupnih treninga</a>
+        </div>
+      </div>
+      <div>
+        <div
+          (click)="changeTableWithoutButtons('Trainer')"
+          pRipple
+          class="section-border cursor-pointer purple"
+        >
+          <a>Treneri</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-8">
+    <app-chart-page *ngIf="showChart"></app-chart-page>
+    <app-table-page
+      [tableName]="tableName"
+      *ngIf="showTableWithButtons"
+    ></app-table-page>
+    <app-table-without-buttons
+      [tableName]="tableName"
+      *ngIf="showTableWithoutButtons"
+    ></app-table-without-buttons>
+  </div>
+</div>

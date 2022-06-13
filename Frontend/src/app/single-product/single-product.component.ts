@@ -67,8 +67,13 @@ export class SingleProductComponent implements OnInit, OnDestroy {
   }
 
   addToCart(){
+    if(!!this.authService.user.value){
     this.authService.addProductToBasket(this.product,this.type,this.quantity);
     this.router.navigate(['/basket']);
+    }else{
+      console.log("nije")
+      this.router.navigate(['/login']);
+    }
 
   }
 }

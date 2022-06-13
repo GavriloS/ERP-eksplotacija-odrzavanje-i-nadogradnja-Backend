@@ -1,0 +1,87 @@
+<p-dialog
+  header="Oprema"
+  [(visible)]="showDialog"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+  (onHide)="closeDialog()"
+>
+  <div class="flex flex-column">
+    <div class="field">
+      <label for="name" class="block">Naziv</label>
+      <input
+        id="name"
+        type="text"
+        aria-describedby="username1-help"
+        pInputText
+        [(ngModel)]="equipment.name"
+      />
+    </div>
+    <div class="field">
+      <label for="manufacturer" class="block">Proizvođač</label>
+      <input
+        id="manufacturer"
+        type="text"
+        aria-describedby="manufacturer"
+        pInputText
+        [(ngModel)]="equipment.manufacturer"
+      />
+    </div>
+    <div class="field">
+      <label for="description" class="block">Opis</label>
+      <textarea
+        id="description"
+        rows="5"
+        cols="50"
+        pInputTextarea
+        [(ngModel)]="equipment.description"
+      ></textarea>
+    </div>
+    <div class="field">
+      <label for="quantity" class="block">Količina</label>
+      <input
+        id="quantity"
+        type="number"
+        aria-describedby="manufacturer"
+        pInputText
+        [(ngModel)]="equipment.quantity"
+      />
+    </div>
+    <div class="field">
+      <label for="price" class="block">Cena</label>
+      <input
+        id="price"
+        type="number"
+        aria-describedby="manufacturer"
+        pInputText
+        [(ngModel)]="equipment.price"
+      />
+    </div>
+    <div class="field mb-7">
+      <label for="type" class="block">Tip</label>
+      <p-dropdown
+        id="type"
+        [options]="equipmentTypes"
+        styleClass="dropdown"
+        [(ngModel)]="selectedType"
+        placeholder="Izaberi kategoriju"
+        optionLabel="name"
+      ></p-dropdown>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="submit()"
+      label="Potvrdi"
+      styleClass="p-button-text"
+    ></p-button>
+    <p-button
+      icon="pi pi-check"
+      (click)="closeDialog()"
+      label="Otkaži"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>

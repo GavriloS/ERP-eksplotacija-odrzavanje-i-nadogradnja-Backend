@@ -1,0 +1,111 @@
+<button
+  pButton
+  pRipple
+  type="button"
+  icon="pi pi-plus"
+  label="Dodaj"
+  class="p-button-rounded"
+  (click)="addRow()"
+></button>
+<br />
+<br />
+<p-table
+  [value]="tableInput"
+  styleClass="p-datatable-striped"
+  responsiveLayout="scroll"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let header of headers">
+        {{ header }}
+      </th>
+      <th></th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product>
+    <tr>
+      <td *ngFor="let header of headers">
+        {{ product[header] }}
+      </td>
+
+      <td>
+        <div class="flex flex-row gap-2">
+          <button
+            pButton
+            pRipple
+            (click)="modifyRow(product)"
+            type="button"
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-warning"
+          ></button>
+          <button
+            pButton
+            pRipple
+            type="button"
+            (click)="deleteRow(product)"
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-danger"
+          ></button>
+        </div>
+      </td>
+      <td></td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<app-equipment-dialog
+  *ngIf="showEquipmentDioalog"
+  [showDialog]="showEquipmentDioalog"
+  (deleteItself)="closeDialog()"
+  [equipment]="element"
+  [mode]="mode"
+></app-equipment-dialog>
+<app-suplement-dialog
+  *ngIf="showSuplementDialog"
+  [showDialog]="showSuplementDialog"
+  (deleteItself)="closeDialog()"
+  [suplement]="element"
+  [mode]="mode"
+>
+</app-suplement-dialog>
+<app-membership-type-dialog
+  *ngIf="showMembershipTypeDialog"
+  [showDialog]="showMembershipTypeDialog"
+  (deleteItself)="closeDialog()"
+  [membershipType]="element"
+  [mode]="mode"
+></app-membership-type-dialog>
+
+<app-grouptraining-type-dialog
+  *ngIf="showGroupTrainingTypeDialog"
+  [showDialog]="showGroupTrainingTypeDialog"
+  (deleteItself)="closeDialog()"
+  [groupTrainingType]="element"
+  [mode]="mode"
+>
+</app-grouptraining-type-dialog>
+
+<app-equipment-type-dialog
+  *ngIf="showEquipmentTypeDialog"
+  [showDialog]="showEquipmentTypeDialog"
+  (deleteItself)="closeDialog()"
+  [equipmentType]="element"
+  [mode]="mode"
+></app-equipment-type-dialog>
+<app-suplement-type-dialog
+  *ngIf="showSuplementTypeDialog"
+  [showDialog]="showSuplementTypeDialog"
+  (deleteItself)="closeDialog()"
+  [suplementType]="element"
+  [mode]="mode"
+>
+</app-suplement-type-dialog>
+<app-delete-dialog
+  *ngIf="showDeleteDialog"
+  [showDialog]="showDeleteDialog"
+  [type]="tableName"
+  [entity]="element"
+  [text]="deleteText"
+  (deleteItself)="closeDialog()"
+></app-delete-dialog>

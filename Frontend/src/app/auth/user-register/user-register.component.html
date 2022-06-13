@@ -1,79 +1,198 @@
-
 <body class="flex justify-content-center flex-wrap mt-5">
   <div class="card flex justify-content-center flex-wrap">
     <p-card>
-      <form (submit)="onRegister(registerForm)" #registerForm="ngForm" class="p-3">
+      <h1>Registracija</h1>
+      <form
+        (submit)="onRegister(registerForm)"
+        #registerForm="ngForm"
+        class="p-3"
+      >
         <h1>Lični podaci</h1>
         <div class="flex flex-row">
-        <span class="p-float-label mr-3">
-          <input id="float-input" name="firstName" ngModel  #firstNameInput="ngModel" type="text" required pInputText>
-          <label for="float-input">Ime</label>
-          <small *ngIf="firstNameInput.invalid && firstNameInput.touched" id="username2-help" class="p-error block">Unesite ime</small>
-      </span>
-
-
-      <span class="p-float-label">
-        <input id="float-input" name="lastName" ngModel  #lastNameInput="ngModel" type="text" required  pInputText>
-        <label for="float-input">Prezime</label>
-        <small *ngIf="lastNameInput.invalid && lastNameInput.touched" id="username2-help" class="p-error block">Unesite prezime</small>
-    </span>
-  </div>
-    <br>
-    <div class="flex flex-row">
-        <span class="p-float-label mr-3">
-          <input id="float-input" name="contact" ngModel  #contactInput="ngModel" type="text" required  pInputText>
-          <label for="float-input">Broj telefona</label>
-          <small *ngIf="contactInput.invalid && contactInput.touched" id="username2-help" class="p-error block">Unesite broj telefona</small>
-      </span>
-
-            <span class="p-float-label">
-              <input id="float-input" name="email" ngModel  #emailInput="ngModel" type="email" required email pInputText>
-              <label for="float-input">Email</label>
-              <small *ngIf="emailInput.invalid && emailInput.touched" id="username2-help" class="p-error block">Unesite celu Email adresu</small>
+          <span class="p-float-label mr-3">
+            <input
+              id="float-input"
+              name="firstName"
+              ngModel
+              #firstNameInput="ngModel"
+              type="text"
+              required
+              pInputText
+            />
+            <label for="float-input">Ime</label>
+            <small
+              *ngIf="firstNameInput.invalid && firstNameInput.touched"
+              id="username2-help"
+              class="p-error block"
+              >Unesite ime</small
+            >
           </span>
-   </div>
-      <br>
-      <span class="p-float-label">
-        <input id="float-input" name="password" type="password" ngModel #passwordInput="ngModel" required password minlength="6" pInputText>
-        <label for="float-input">Password</label>
-        <small *ngIf="passwordInput.invalid && passwordInput.touched" id="username2-help" class="p-error block">Šifra mora da sadrži više od 6 znakova</small>
-    </span>
-      <br>
-      <hr>
-      <h1>Adresa</h1>
-      <div class="flex flex-row">
-        <span class="p-float-label mr-3">
-          <input id="float-input" name="street" type="text" ngModel #streetInput="ngModel" required  pInputText>
-          <label for="float-input">Ulica</label>
-          <small *ngIf="streetInput.invalid && streetInput.touched" id="username2-help" class="p-error block">Unesite naziv ulice</small>
-      </span>
 
-      <span class="p-float-label">
-        <input id="float-input" name="streetNumber" type="text" ngModel #streetNumberInput="ngModel" required pInputText>
-        <label for="float-input">Broj ulice</label>
-        <small *ngIf="streetNumberInput.invalid && streetNumberInput.touched" id="username2-help" class="p-error block">Unesite broj ulice</small>
-    </span>
+          <span class="p-float-label">
+            <input
+              id="float-input"
+              name="lastName"
+              ngModel
+              #lastNameInput="ngModel"
+              type="text"
+              required
+              pInputText
+            />
+            <label for="float-input">Prezime</label>
+            <small
+              *ngIf="lastNameInput.invalid && lastNameInput.touched"
+              id="username2-help"
+              class="p-error block"
+              >Unesite prezime</small
+            >
+          </span>
+        </div>
+        <br />
+        <div class="flex flex-row">
+          <span class="p-float-label mr-3">
+            <input
+              id="float-input"
+              name="contact"
+              ngModel
+              #contactInput="ngModel"
+              type="text"
+              required
+              pInputText
+            />
+            <label for="float-input">Broj telefona</label>
+            <small
+              *ngIf="contactInput.invalid && contactInput.touched"
+              id="username2-help"
+              class="p-error block"
+              >Unesite broj telefona</small
+            >
+          </span>
 
-      </div>
-    <br>
-      <div class="flex flex-row">
-        <span class="p-float-label mr-3">
-          <input id="float-input" name="city" type="text" ngModel #cityInput="ngModel" required pInputText>
-          <label for="float-input">Grad</label>
-          <small *ngIf="cityInput.invalid && cityInput.touched" id="username2-help" class="p-error block">Unesite naziv grada</small>
-      </span>
+          <span class="p-float-label">
+            <input
+              id="float-input"
+              name="email"
+              ngModel
+              #emailInput="ngModel"
+              type="email"
+              required
+              email
+              pInputText
+            />
+            <label for="float-input">Email</label>
+            <small
+              *ngIf="emailInput.invalid && emailInput.touched"
+              id="username2-help"
+              class="p-error block"
+              >Unesite celu Email adresu</small
+            >
+          </span>
+        </div>
+        <br />
+        <span class="p-float-label">
+          <input
+            id="float-input"
+            name="password"
+            type="password"
+            ngModel
+            #passwordInput="ngModel"
+            required
+            password
+            minlength="6"
+            pInputText
+          />
+          <label for="float-input">Password</label>
+          <small
+            *ngIf="passwordInput.invalid && passwordInput.touched"
+            id="username2-help"
+            class="p-error block"
+            >Šifra mora da sadrži više od 6 znakova</small
+          >
+        </span>
+        <br />
+        <hr />
+        <h1>Adresa</h1>
+        <div class="flex flex-row">
+          <span class="p-float-label mr-3">
+            <input
+              id="float-input"
+              name="street"
+              type="text"
+              ngModel
+              #streetInput="ngModel"
+              required
+              pInputText
+            />
+            <label for="float-input">Ulica</label>
+            <small
+              *ngIf="streetInput.invalid && streetInput.touched"
+              id="username2-help"
+              class="p-error block"
+              >Unesite naziv ulice</small
+            >
+          </span>
 
-      <span class="p-float-label">
-        <input id="float-input" name="postalCode" type="text" ngModel #postalCodeInput="ngModel" required pInputText>
-        <label for="float-input">Poštanski broj</label>
-        <small *ngIf="postalCodeInput.invalid && postalCodeInput.touched" id="username2-help" class="p-error block">Unesite poštanski broj</small>
-    </span>
+          <span class="p-float-label">
+            <input
+              id="float-input"
+              name="streetNumber"
+              type="text"
+              ngModel
+              #streetNumberInput="ngModel"
+              required
+              pInputText
+            />
+            <label for="float-input">Broj ulice</label>
+            <small
+              *ngIf="streetNumberInput.invalid && streetNumberInput.touched"
+              id="username2-help"
+              class="p-error block"
+              >Unesite broj ulice</small
+            >
+          </span>
+        </div>
+        <br />
+        <div class="flex flex-row">
+          <span class="p-float-label mr-3">
+            <input
+              id="float-input"
+              name="city"
+              type="text"
+              ngModel
+              #cityInput="ngModel"
+              required
+              pInputText
+            />
+            <label for="float-input">Grad</label>
+            <small
+              *ngIf="cityInput.invalid && cityInput.touched"
+              id="username2-help"
+              class="p-error block"
+              >Unesite naziv grada</small
+            >
+          </span>
 
-      </div>
-      <br>
-      <p-button  type="submit">Registruj se</p-button>
-
-
+          <span class="p-float-label">
+            <input
+              id="float-input"
+              name="postalCode"
+              type="text"
+              ngModel
+              #postalCodeInput="ngModel"
+              required
+              pInputText
+            />
+            <label for="float-input">Poštanski broj</label>
+            <small
+              *ngIf="postalCodeInput.invalid && postalCodeInput.touched"
+              id="username2-help"
+              class="p-error block"
+              >Unesite poštanski broj</small
+            >
+          </span>
+        </div>
+        <br />
+        <p-button type="submit">Registruj se</p-button>
       </form>
     </p-card>
   </div>

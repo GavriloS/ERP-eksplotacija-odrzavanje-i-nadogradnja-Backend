@@ -1,0 +1,73 @@
+<p-dialog
+  header="Oprema"
+  [(visible)]="showDialog"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+  (onHide)="closeDialog()"
+>
+  <div class="flex flex-column">
+    <div class="field">
+      <label for="user" class="block">Korisnik</label>
+      <input
+        id="user"
+        type="text"
+        aria-describedby="username1-help"
+        pInputText
+        [(ngModel)]="basket.user.firstName + ' ' + basket.user.lastName"
+        [disabled]="true"
+      />
+    </div>
+    <div class="field">
+      <label for="date" class="block">Datum</label>
+      <input
+        id="date"
+        type="date"
+        aria-describedby="date"
+        pInputText
+        [ngModel]="basket.dateTimeOfPurchase | date: 'yyyy-MM-dd'"
+        [disabled]="true"
+      />
+    </div>
+    <div class="field">
+      <label for="price" class="block">Ukupna cena</label>
+      <input
+        id="price"
+        type="number"
+        aria-describedby="price"
+        pInputText
+        [ngModel]="getTotalPrice()"
+        [disabled]="true"
+      />
+    </div>
+    <div class="field">
+      <label for="suplements" class="block">Suplementi</label>
+      <p-listbox
+        id="suplements"
+        [options]="basket.suplements"
+        [disabled]="true"
+        optionLabel="suplement.name"
+        [style]="{ width: '15rem' }"
+      ></p-listbox>
+    </div>
+    <div class="field">
+      <label for="equipments" class="block">Opreme</label>
+      <p-listbox
+        id="equipments"
+        [options]="basket.equipments"
+        [disabled]="true"
+        optionLabel="equipment.name"
+        [style]="{ width: '15rem' }"
+      ></p-listbox>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="closeDialog()"
+      label="Otkaži"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>

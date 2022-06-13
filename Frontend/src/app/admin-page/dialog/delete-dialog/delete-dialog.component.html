@@ -1,0 +1,25 @@
+<p-dialog
+  header="Header"
+  [(visible)]="showDialog"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="closeDialog()"
+>
+  <p class="m-0">Da li ste sigurni da želite da izbrišete {{ text }} ?</p>
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="delete()"
+      label="Potvrdi"
+      styleClass="p-button-text"
+    ></p-button>
+    <p-button
+      icon="pi pi-check"
+      (click)="closeDialog()"
+      label="Otkaži"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>

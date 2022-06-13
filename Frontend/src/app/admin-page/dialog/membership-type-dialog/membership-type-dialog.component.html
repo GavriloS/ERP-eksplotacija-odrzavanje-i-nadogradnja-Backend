@@ -1,0 +1,66 @@
+<p-dialog
+  header="Oprema"
+  [(visible)]="showDialog"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+  (onHide)="closeDialog()"
+>
+  <div class="flex flex-column">
+    <div class="field">
+      <label for="name" class="block">Naziv</label>
+      <input
+        id="name"
+        type="text"
+        aria-describedby="name"
+        pInputText
+        [(ngModel)]="membershipType.name"
+      />
+    </div>
+    <div class="field">
+      <label for="training" class="block">Broj treninga</label>
+      <input
+        id="training"
+        type="number"
+        aria-describedby="training"
+        pInputText
+        [(ngModel)]="membershipType.numberOfTrainings"
+      />
+    </div>
+    <div class="field">
+      <label for="groupTraining" class="block">Broj grupnih treninga</label>
+      <input
+        id="groupTraining"
+        type="number"
+        aria-describedby="groupTraining"
+        pInputText
+        [(ngModel)]="membershipType.numberOfGroupTrainings"
+      />
+    </div>
+    <div class="field">
+      <label for="price" class="block">Cena</label>
+      <input
+        id="price"
+        type="number"
+        aria-describedby="price"
+        pInputText
+        [(ngModel)]="membershipType.price"
+      />
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="submit()"
+      label="Potvrdi"
+      styleClass="p-button-text"
+    ></p-button>
+    <p-button
+      icon="pi pi-check"
+      (click)="closeDialog()"
+      label="Otkaži"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>

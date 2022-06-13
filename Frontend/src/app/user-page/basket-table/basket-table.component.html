@@ -1,0 +1,24 @@
+<span *ngIf="baskets.length > 0">
+  <h2>Porudžbine:</h2>
+  <p-table [value]="baskets" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <th *ngFor="let header of headers">
+        {{ header }}
+      </th>
+    </ng-template>
+    <ng-template pTemplate="body" let-basket>
+      <tr (click)="openDialog(basket)" class="cursor-pointer">
+        <td>{{ basket.dateTimeOfPurchase | date: "yyyy-MM-dd" }}</td>
+        <td>{{ getBasketPrice(basket) }} RSD</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</span>
+<h2 *ngIf="baskets.length === 0">Nema porudžbina</h2>
+
+<app-basket-dialog
+  *ngIf="showBasketDialog"
+  [showDialog]="showBasketDialog"
+  (deleteItself)="closeDialog()"
+  [basket]="selectedBasket"
+></app-basket-dialog>

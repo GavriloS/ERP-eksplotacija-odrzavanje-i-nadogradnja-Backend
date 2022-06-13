@@ -1,10 +1,14 @@
-<div *ngIf="role === 'Admin'" class="mt-5 flex justify-content-center">
-  <p-button
-    label="Nov proizvod"
-    routerLink="/add/product"
-    icon="pi pi-plus"
-    class="mr-2"
-  ></p-button>
+<div class="mt-3 mr-3 flex flex-row-reverse">
+  <span class="p-input-icon-left">
+    <i class="pi pi-search"></i>
+    <input
+      type="text"
+      pInputText
+      placeholder="Pretraga"
+      [(ngModel)]="searchText"
+      (keyup.enter)="onSearch()"
+    />
+  </span>
 </div>
 
 <div class="mx-5">
@@ -24,6 +28,27 @@
           placeholder="Izaberi kategoriju"
           optionLabel="name"
         ></p-dropdown>
+
+        <br />
+        <br />
+        <p-dropdown
+          [options]="productTypes"
+          styleClass="dropdown"
+          (onChange)="onProductTypeChange($event)"
+          [(ngModel)]="selectedProductType"
+          placeholder="Tip"
+          optionLabel="name"
+        ></p-dropdown>
+        <br />
+        <br />
+        <p-dropdown
+          [options]="priceSortingCategories"
+          styleClass="dropdown"
+          (onChange)="onPriceSortingChange($event)"
+          [(ngModel)]="selectedPriceSorting"
+          placeholder="Cena"
+          optionLabel="name"
+        ></p-dropdown>
       </p-card>
     </div>
 
@@ -37,6 +62,10 @@
               [product]="product"
             ></app-product-card>
           </div>
+        </span>
+
+        <span *ngIf="products.length === 0">
+          <h3>Nema traženih proizvoda</h3>
         </span>
       </div>
     </div>

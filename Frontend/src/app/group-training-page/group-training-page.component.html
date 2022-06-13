@@ -1,10 +1,70 @@
-
 <div class="mt-5 flex justify-content-center gap-5">
   <div *ngFor="let groupTrainingType of groupTrainingTypes">
-    <app-group-training-card [groupTrainingType]="groupTrainingType"></app-group-training-card>
+    <app-group-training-card
+      [groupTrainingType]="groupTrainingType"
+    ></app-group-training-card>
   </div>
 </div>
-<br>
-<br>
-<full-calendar class="calendar" [options]="calendarOptions"></full-calendar>
-<p>Hello</p>
+<br />
+<br />
+<full-calendar
+  #calendar
+  class="calendar"
+  [options]="calendarOptions"
+></full-calendar>
+
+<p-dialog
+  header="Oprema"
+  [(visible)]="showDialog"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+  (onHide)="closeDialog()"
+>
+  <div class="flex flex-column p-8">
+    <div class="field">
+      <label for="type" class="block">Tip</label>
+      <p-dropdown
+        [options]="groupTrainingTypes"
+        [(ngModel)]="selectedGroupTraining"
+        placeholder="Izaberi trening"
+        optionLabel="name"
+      ></p-dropdown>
+    </div>
+
+    <div class="field">
+      <label for="quantity" class="block">Broj slobodnih mesta</label>
+      <input
+        id="quantity"
+        type="number"
+        aria-describedby="quantity"
+        pInputText
+        [(ngModel)]="userCapacity"
+      />
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="submit()"
+      label="Potvrdi"
+      styleClass="p-button-text"
+    ></p-button>
+    <p-button
+      icon="pi pi-check"
+      (click)="closeDialog()"
+      label="Otkaži"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>
+
+<app-participate-dialog
+  *ngIf="showParticipateDialog"
+  [showDialog]="showParticipateDialog"
+  [(groupTraining)]="groupTrainings[groupTrainingIndex]"
+  (deleteItself)="closeDialog()"
+  [mode]="mode"
+  (updateGroupTrainingEvent)="updateGroupTraining($event)"
+></app-participate-dialog>

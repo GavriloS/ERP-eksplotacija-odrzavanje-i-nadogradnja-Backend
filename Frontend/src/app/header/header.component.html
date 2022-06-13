@@ -22,7 +22,7 @@
     ></button>
     <button
       pButton
-      routerLink="products"
+      routerLink="/"
       label="Shop"
       class="p-button-rounded p-button-success headerButton"
     ></button>
@@ -31,6 +31,13 @@
       routerLink="membershipTypes"
       label="Kupi članarinu"
       class="p-button-rounded p-button-danger headerButton"
+    ></button>
+    <button
+      pButton
+      *ngIf="isAuthenticated"
+      routerLink="user"
+      label="Profil"
+      class="p-button-rounded p-button-help headerButton"
     ></button>
     <button
       pButton

@@ -12,11 +12,15 @@ export class SuplementService {
   constructor(private http:HttpClient) { }
 
 
-  getSuplements(resultPerPage:number,currentPage:number,name:string){
-    let queryParams = `?results=${resultPerPage}&page=${currentPage}`;
+  getSuplements(resultPerPage:number,currentPage:number,name:string,orderBy:string,typeId:string){
+    let queryParams = `?results=${resultPerPage}&page=${currentPage}&orderBy=${orderBy}`;
     if(!!name){
       queryParams+=`&name=${name}`
     }
+    if(!!typeId){
+      queryParams+= `&typeId=${typeId}`
+    }
+
     return this.http.get<{suplements:Product[],currentPage:number,totalPages:number}>('http://localhost:5189/api/suplement'+queryParams)
 
   }
@@ -43,5 +47,15 @@ export class SuplementService {
   modifySuplement(suplement:Suplement){
     console.log(suplement);
     return this.http.put<Suplement>('http://localhost:5189/api/suplement/',suplement);
+  }
+  getEquipmentsAdmin(){
+    return this.http.get<Suplement[]>('http://localhost:5189/api/suplement/admin');
+  }
+  addEquipment(suplement:Suplement){
+    return this.http.post<Suplement>('http://localhost:5189/api/suplement/',suplement);
+  }
+
+  deleteSuplement(id:string){
+    return this.http.delete('http://localhost:5189/api/suplement/'+id);
   }
 }

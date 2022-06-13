@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MembershipType } from '../models/membershipType.model';
+import { AuthService } from '../services/auth.service';
 import { MembershipTypeService } from '../services/membership-type.service';
+import { StripeService } from '../services/stripe.service';
 
 @Component({
   selector: 'app-membership-page',
@@ -9,7 +12,10 @@ import { MembershipTypeService } from '../services/membership-type.service';
 })
 export class MembershipPageComponent implements OnInit {
 
-  constructor(private membershipTypeService:MembershipTypeService) { }
+  constructor(private membershipTypeService:MembershipTypeService,
+              private stripeService:StripeService,
+              private authService:AuthService,
+              private router:Router) { }
   membershipTypes:MembershipType[] = [];
   membershipTypesMix:MembershipType[] = [];
   membershipTypesTraining:MembershipType[] = [];
@@ -46,6 +52,22 @@ export class MembershipPageComponent implements OnInit {
 
     })
 
+  }
+
+
+  buyMembership(membershipType:MembershipType){
+
+      let user = this.authService.user.value;
+      if(!!user){
+
+
+      let m:Record<string,number> = {};
+      m[membershipType.priceId] = 1;
+
+      this.stripeService.requestMemberSessionMembership(m,user.userId);
+      }else{
+          this.router.navigate(["/login"]);
+      }
   }
 
 

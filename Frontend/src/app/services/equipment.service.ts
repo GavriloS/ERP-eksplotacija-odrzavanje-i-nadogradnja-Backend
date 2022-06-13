@@ -12,10 +12,13 @@ export class EquipmentService {
   constructor(private http:HttpClient) { }
 
 
-  getEquipments(resultPerPage:number,currentPage:number,name:string){
-    let queryParams = `?results=${resultPerPage}&page=${currentPage}`;
+  getEquipments(resultPerPage:number,currentPage:number,name:string,orderBy:string,typeId:string){
+    let queryParams = `?results=${resultPerPage}&page=${currentPage}&orderBy=${orderBy}`;
     if(!!name){
       queryParams+=`&name=${name}`
+    }
+    if(!!typeId){
+      queryParams+=`&typeId=${typeId}`
     }
     return this.http.get<{equipments:Product[],currentPage:number,totalPages:number}>('http://localhost:5189/api/equipment'+queryParams)
 
@@ -41,7 +44,19 @@ export class EquipmentService {
   }
 
   modifyEquipment(equipment:Equipment){
-    console.log(equipment);
     return this.http.put<Equipment>('http://localhost:5189/api/equipment/',equipment);
+  }
+
+  getEquipmentsAdmin(){
+    return this.http.get<Equipment[]>('http://localhost:5189/api/equipment/admin');
+  }
+
+  deleteEquipment(id:string){
+    return this.http.delete('http://localhost:5189/api/equipment/'+id)
+  }
+
+  addEquipment(equipment:Equipment){
+    console.log(equipment);
+    return this.http.post<Equipment>('http://localhost:5189/api/equipment/',equipment);
   }
 }
