@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Stripe;
 using TeretanaApi.Data.Interfaces;
 using TeretanaApi.Entities;
 using TeretanaApi.Model.MembershipType;
@@ -62,7 +63,31 @@ namespace TeretanaApi.Controllers
         {
             try
             {
-                var newMembershipType = await membershipTypeRepository.CreateMembershipTypeAsync(mapper.Map<MembershipType>(membershipType));
+                var m = mapper.Map<MembershipType>(membershipType);
+               
+                var productService = new ProductService();
+                var priceService = new PriceService();
+                var productOptions = new ProductCreateOptions
+                {
+                    Name = m.Name,
+
+                };
+
+                var product = productService.Create(productOptions);
+                m.ProductId = product.Id;
+                var priceOptions = new PriceCreateOptions
+                {
+                    UnitAmount = Convert.ToInt64(m.Price) * 100,
+                    Currency = "rsd",
+
+                    Product = product.Id
+                };
+
+                var price = priceService.Create(priceOptions);
+                m.PriceId = price.Id;
+
+                var newMembershipType = await membershipTypeRepository.CreateMembershipTypeAsync(m);
+
 
                 await membershipTypeRepository.SaveChangesAsync();
 

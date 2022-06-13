@@ -35,6 +35,11 @@ namespace TeretanaApi.Data
             return await _context.MembershipTypes.ToListAsync();
         }
 
+        public async Task<MembershipType> GetMembershipTypeByPriceId(string priceId)
+        {
+            return await _context.MembershipTypes.FirstOrDefaultAsync(m => m.PriceId == priceId);
+        }
+
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();

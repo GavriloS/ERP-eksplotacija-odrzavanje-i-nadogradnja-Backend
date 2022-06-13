@@ -9,6 +9,7 @@ namespace TeretanaApi.Data.Interfaces
         Task DeleteUserByIdAsync(Guid userId);
         Task<User> CreateUserAsync(User user);
         Task<User> GetUserByEmailAsync(string email);
+        Task<List<User>> GetTrainers();
         Task SaveChangesAsync();
     }
 }

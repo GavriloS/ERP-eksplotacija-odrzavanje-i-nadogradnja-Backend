@@ -1,4 +1,4 @@
-﻿namespace TeretanaApi.Stripe
+﻿namespace TeretanaApi.StripeSettings
 {
     public class StripeSettings { 
     

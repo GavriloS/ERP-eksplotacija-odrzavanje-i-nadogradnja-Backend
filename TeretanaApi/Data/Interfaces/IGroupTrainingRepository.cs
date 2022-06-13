@@ -8,6 +8,7 @@ namespace TeretanaApi.Data.Interfaces
         Task<GroupTraining> GetGroupTrainingByIdAsync(Guid groupTrainingId);
         Task DeleteGroupTrainingByIdAsync(Guid groupTrainingId);
         Task<GroupTraining> CreateGroupTrainingAsync(GroupTraining groupTraining);
+        Task<List<GroupTraining>> GetGroupTrainingsByTrainer(Guid trainerId);
         Task SaveChangesAsync();
     }
 }

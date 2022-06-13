@@ -8,6 +8,7 @@
         public string PriceId { get; set; }
         public string ProductId { get; set; }
         public string Type { get; set; }
+        public string Quantity { get; set; }
         
     }
 }

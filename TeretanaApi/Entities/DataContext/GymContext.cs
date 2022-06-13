@@ -216,7 +216,9 @@ namespace TeretanaApi.Entities.DataContext
                     GroupTrainingTypeId = Guid.Parse("e1d2a65b-e62e-4b0e-b6b3-fbdaf9ee013b"),
                     Name = "Power pump",
                     Description = "Power Pump trening aktivira celo telo, svaku mišićnu grupu, noge, leđa, grudi, ramena, ruke i trbušno jezgro. Opterećivanjem celog tela na svakom treningu sa tegovima i velikim brojem ponavljanja, značajno se utiče na sagorevanje kalorija, smanjivanje masnog tkiva, kao i izgradnju mišične mase.",
-                    Duration = 45
+                    Duration = 45,
+                    
+
                 });
 
 
@@ -226,7 +228,9 @@ namespace TeretanaApi.Entities.DataContext
                     GroupTrainingId = Guid.Parse("d2153f69-fe08-41b4-8256-c693c16d30ec"),
                     DateTimeOfGroupTraining = DateTime.Parse("07/1/2022 18:00:00"),
                     GroupTrainingTypeId = Guid.Parse("e1d2a65b-e62e-4b0e-b6b3-fbdaf9ee013b"),
-                    TrainerId = Guid.Parse("35c20dc1-e401-4e08-8b48-4b058a4388b5")
+                    TrainerId = Guid.Parse("35c20dc1-e401-4e08-8b48-4b058a4388b5"),
+                    UserCapacity = 20,
+                    ActualUserCount = 15
 
                 });
             builder.Entity<GroupTraining>()
@@ -235,7 +239,9 @@ namespace TeretanaApi.Entities.DataContext
                    GroupTrainingId = Guid.Parse("df27a844-f104-4ef2-9ddb-cfc49cee6a57"),
                    DateTimeOfGroupTraining = DateTime.Parse("07/1/2022 13:00:00"),
                    GroupTrainingTypeId = Guid.Parse("383ed840-cd75-4c7b-9b20-a2bc74c4b25e"),
-                   TrainerId = Guid.Parse("35c20dc1-e401-4e08-8b48-4b058a4388b5")
+                   TrainerId = Guid.Parse("35c20dc1-e401-4e08-8b48-4b058a4388b5"),
+                   UserCapacity = 20,
+                   ActualUserCount = 15
 
                });
 

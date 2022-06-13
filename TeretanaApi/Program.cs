@@ -11,7 +11,8 @@ using TeretanaApi.Auth;
 using TeretanaApi.Data;
 using TeretanaApi.Data.Interfaces;
 using TeretanaApi.Entities.DataContext;
-using TeretanaApi.Stripe;
+using TeretanaApi.Helper;
+using TeretanaApi.StripeSettings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -98,6 +99,7 @@ builder.Services.AddScoped<IGroupTrainingTypeRepository,GroupTrainingTypeReposit
 builder.Services.AddScoped<ISuplementTypeRepository,SuplementTypeRepository>();
 builder.Services.AddScoped<ISuplementRepository,SuplementRepository>();
 builder.Services.AddScoped<IEquipmentRepository,EquipmentRepository>();
+builder.Services.AddScoped<IEquipmentTypeRepository, EquipmentTypeRepository>();
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 builder.Services.AddScoped<IGroupTrainingRepository, GroupTrainingRepository>();
 builder.Services.AddScoped<IMembershipTypeRepository, MembershipTypeRepository>();
@@ -106,6 +108,9 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserTypeRepository, UserTypeRepository>();
 builder.Services.AddScoped<IBasketEquipmentRepository, BasketEquipmentRepository>();
 builder.Services.AddScoped<IBasketSuplementRepository, BasketSuplementRepository>();
+
+//Helper
+builder.Services.AddScoped<IProcessStripeEvents, ProcessStripeEvents>();
 
 //AutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

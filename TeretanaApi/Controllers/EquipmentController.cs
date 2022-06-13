@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Stripe;
 using TeretanaApi.Data.Interfaces;
 using TeretanaApi.Entities;
 using TeretanaApi.Model.Equipment;
@@ -28,9 +29,9 @@ namespace TeretanaApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [AllowAnonymous]
-        public async Task<ActionResult<EquipmentsDto>> GetEquipments(int page,int results,string? name = null)
+        public async Task<ActionResult<EquipmentsDto>> GetEquipments(int page,int results, string orderBy, string? name = null,Guid? typeId = null)
         {
-            var equipments = await equipmentRepository.GetEquipmentsAsync(page,results,name);
+            var equipments = await equipmentRepository.GetEquipmentsAsync(page,results,name,orderBy,typeId);
 
             if(equipments == null || equipments.Count == 0)
             {
@@ -46,6 +47,21 @@ namespace TeretanaApi.Controllers
                 TotalPages = (int)totalPages
             };
             return new OkObjectResult(equipmentsDto);
+        }
+
+        [HttpGet("admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [AllowAnonymous]
+        public async Task<ActionResult<Equipment>> GetEquipments()
+        {
+            var equipments = await equipmentRepository.GetEquipmentsAsync();
+
+            if (equipments == null || equipments.Count == 0)
+            {
+                return new NoContentResult();
+            }
+            return new OkObjectResult(equipments);
         }
 
         [HttpGet("{equipmentId}")]
@@ -72,8 +88,31 @@ namespace TeretanaApi.Controllers
         {
             try
             {
-                var newEquipment = await equipmentRepository.CreateEquipmentAsync(mapper.Map<Equipment>(equipment));
+                var e = mapper.Map<Equipment>(equipment);
+   
 
+                var productService = new ProductService();
+                var priceService = new PriceService();
+                var productOptions = new ProductCreateOptions
+                {
+                    Name = e.Name,
+
+                };
+
+                var product = productService.Create(productOptions);
+                e.ProductId = product.Id;
+                var priceOptions = new PriceCreateOptions
+                {
+                    UnitAmount = Convert.ToInt64(e.Price) * 100,
+                    Currency = "rsd",
+
+                    Product = product.Id
+                };
+
+                var price = priceService.Create(priceOptions);
+                e.PriceId = price.Id;
+
+                var newEquipment = await equipmentRepository.CreateEquipmentAsync(e);
                 await equipmentRepository.SaveChangesAsync();
 
                 string location = linkGenerator.GetPathByAction("GetEqupmentById", "Equipment", new { equipmentId = newEquipment.EquipmentId });
@@ -120,7 +159,7 @@ namespace TeretanaApi.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Equipment>> UpdateEquipment(EquipmentUpdateDto equipment) 
         {
-            var oldEquipment = await equipmentRepository.GetEquipmentByIdAsync(equipment.Id);
+            var oldEquipment = await equipmentRepository.GetEquipmentByIdAsync(equipment.EquipmentId);
 
             if(oldEquipment == null)
             {

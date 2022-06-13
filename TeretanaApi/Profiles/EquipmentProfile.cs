@@ -25,20 +25,14 @@ namespace TeretanaApi.Profiles
                 opt => opt.MapFrom(src => "e"))
                 .ForMember(
                 dest => dest.PriceId,
-                opt => opt.MapFrom(src => src.PriceId));
-
-            CreateMap<EquipmentCreationDto, Equipment>()
-                .ForMember(  
-                dest => dest.EquipmentTypeId,
-                opt => opt.MapFrom(src => src.TypeId));
-
-            CreateMap<EquipmentUpdateDto, Equipment>()
+                opt => opt.MapFrom(src => src.PriceId))
                 .ForMember(
-                dest => dest.EquipmentTypeId,
-                opt => opt.MapFrom(src => src.TypeId))
-                .ForMember(
-                dest => dest.EquipmentId,
-                opt => opt.MapFrom(src => src.Id));
+                dest => dest.Quantity,
+                opt => opt.MapFrom(src => src.Quantity));
+
+            CreateMap<EquipmentCreationDto, Equipment>();
+
+            CreateMap<EquipmentUpdateDto, Equipment>();
         }
     }
 }

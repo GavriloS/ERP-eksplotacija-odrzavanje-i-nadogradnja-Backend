@@ -28,12 +28,16 @@ namespace TeretanaApi.Data
 
         public async Task<GroupTraining> GetGroupTrainingByIdAsync(Guid groupTrainingId)
         {
-            return await _context.GroupTrainings.Include(g => g.Trainer).FirstOrDefaultAsync(g => g.GroupTrainingId == groupTrainingId);
+            return await _context.GroupTrainings.Include(g => g.Trainer).Include(g => g.GroupTrainingType).Include(g => g.Users).FirstOrDefaultAsync(g => g.GroupTrainingId == groupTrainingId);
         }
 
         public async Task<List<GroupTraining>> GetGroupTrainingsAsync()
         {
-            return await _context.GroupTrainings.Include(g => g.Trainer).Include(g => g.Users).ToListAsync();
+            return await _context.GroupTrainings.Include(g => g.Trainer).Include(g => g.Users).Include(g => g.GroupTrainingType).ToListAsync();
+        }
+        public async Task<List<GroupTraining>> GetGroupTrainingsByTrainer(Guid trainerId)
+        {
+            return await _context.GroupTrainings.Include(g => g.Trainer).Include(g => g.Users).Include(g => g.GroupTrainingType).Where(g => g.TrainerId == trainerId).ToListAsync();
         }
 
         public async Task SaveChangesAsync()

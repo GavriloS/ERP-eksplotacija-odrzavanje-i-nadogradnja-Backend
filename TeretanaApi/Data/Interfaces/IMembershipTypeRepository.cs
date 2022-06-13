@@ -8,6 +8,7 @@ namespace TeretanaApi.Data.Interfaces
         Task<MembershipType> GetMembershipTypeByIdAsync(Guid membershipId);
         Task DeleteMembershipTypeByIdAsync(Guid membershipId);
         Task<MembershipType> CreateMembershipTypeAsync(MembershipType membership);
+        Task<MembershipType> GetMembershipTypeByPriceId(string priceId);
         Task SaveChangesAsync();
     }
 }

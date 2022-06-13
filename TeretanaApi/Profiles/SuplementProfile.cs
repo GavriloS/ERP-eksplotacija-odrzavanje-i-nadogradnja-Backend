@@ -9,18 +9,9 @@ namespace TeretanaApi.Profiles
     {
         public SuplementProfile()
         {
-            CreateMap<SuplementCreationDto, Suplement>()
-                .ForMember(
-                dest => dest.SuplementTypeId,
-                opt => opt.MapFrom(src => src.TypeId));
+            CreateMap<SuplementCreationDto, Suplement>();
             CreateMap<Suplement, Suplement>();
-            CreateMap<SuplementUpdateDto, Suplement>()
-                .ForMember(
-                dest => dest.SuplementId,
-                opt => opt.MapFrom(src => src.Id))
-                .ForMember(
-                dest => dest.SuplementTypeId,
-                opt => opt.MapFrom(src => src.TypeId));
+            CreateMap<SuplementUpdateDto, Suplement>();
 
             CreateMap<Suplement, SuplementBasicDto>();
 
@@ -39,7 +30,10 @@ namespace TeretanaApi.Profiles
               opt => opt.MapFrom(src => "s"))
               .ForMember(
                 dest => dest.PriceId,
-                opt => opt.MapFrom(src => src.PriceId));
+                opt => opt.MapFrom(src => src.PriceId))
+              .ForMember(
+                dest => dest.Quantity,
+                opt => opt.MapFrom(src => src.Quantity));
         }
     }
 }

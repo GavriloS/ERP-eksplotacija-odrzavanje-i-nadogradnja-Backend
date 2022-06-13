@@ -1,5 +1,5 @@
 ﻿
-namespace TeretanaApi.Model.Stripe
+namespace TeretanaApi.Model.StripeFolder
 {
     public class ErrorMessage
     {

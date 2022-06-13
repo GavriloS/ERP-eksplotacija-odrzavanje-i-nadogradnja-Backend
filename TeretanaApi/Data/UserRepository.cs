@@ -40,6 +40,11 @@ namespace TeretanaApi.Data
             return await _context.Users.Include(u => u.UserType).Include(u => u.Address).FirstOrDefaultAsync(u => u.Email == email);
         }
 
+        public async Task<List<User>> GetTrainers()
+        {
+            return await _context.Users.Include(u => u.UserType).Include(u => u.Address).Where(u => u.UserTypeId == Guid.Parse("51371A38-00FA-4171-BE2C-002E483ED463")).ToListAsync();
+        }
+
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();

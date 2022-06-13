@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Stripe;
 using TeretanaApi.Data.Interfaces;
 using TeretanaApi.Entities;
 using TeretanaApi.Model.Product;
@@ -29,10 +30,10 @@ namespace TeretanaApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [AllowAnonymous]
-        public async Task<ActionResult<SuplementsDto>> GetSuplements(int page,int results,string? name = null)
+        public async Task<ActionResult<SuplementsDto>> GetSuplements(int page,int results, string orderBy, string? name = null,Guid? typeId = null)
         {
 
-            var suplements = await suplementRepository.GetSuplementsAsync(page,results,name);
+            var suplements = await suplementRepository.GetSuplementsAsync(page,results,name,orderBy,typeId);
 
             if(suplements == null|| suplements.Count == 0)
             {
@@ -49,6 +50,22 @@ namespace TeretanaApi.Controllers
             };
             return new OkObjectResult(resultSuplements);
         }
+
+        [HttpGet("admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [AllowAnonymous]
+        public async Task<ActionResult<Suplement>> GetSuplements()
+        {
+            var suplements = await suplementRepository.GetSuplementsAsync();
+
+            if (suplements == null || suplements.Count == 0)
+            {
+                return new NoContentResult();
+            }
+            return new OkObjectResult(suplements);
+        }
+
         [HttpGet("{suplementId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -73,7 +90,31 @@ namespace TeretanaApi.Controllers
         {
             try
             {
-                var newSuplement = await suplementRepository.CreateSuplementAsync(mapper.Map<Suplement>(suplement));
+                var s = mapper.Map<Suplement>(suplement);
+
+
+                var productService = new ProductService();
+                var priceService = new PriceService();
+                var productOptions = new ProductCreateOptions
+                {
+                    Name = s.Name,
+
+                };
+
+                var product = productService.Create(productOptions);
+                s.ProductId = product.Id;
+                var priceOptions = new PriceCreateOptions
+                {
+                    UnitAmount = Convert.ToInt64(s.Price) * 100,
+                    Currency = "rsd",
+
+                    Product = product.Id
+                };
+
+                var price = priceService.Create(priceOptions);
+                s.PriceId = price.Id;
+
+                var newSuplement = await suplementRepository.CreateSuplementAsync(s);
 
                 await suplementRepository.SaveChangesAsync();
 
@@ -124,7 +165,7 @@ namespace TeretanaApi.Controllers
         {
             try
             {
-                var oldSuplement = await suplementRepository.GetSuplementByIdAsync(suplement.Id);
+                var oldSuplement = await suplementRepository.GetSuplementByIdAsync(suplement.SuplementId);
 
                 if(oldSuplement == null)
                 {

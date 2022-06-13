@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 
 using Stripe;
+
 using Stripe.Checkout;
 using TeretanaApi.Data.Interfaces;
-using TeretanaApi.Model.Stripe;
+using TeretanaApi.Model.StripeFolder;
 using System.IO;
+using TeretanaApi.Helper;
 
 namespace TeretanaApi.Controllers
 {
@@ -18,13 +20,15 @@ namespace TeretanaApi.Controllers
         private ISuplementRepository suplementRepository;
         private IMembershipTypeRepository membershipTypeRepository;
         private readonly IConfiguration _config;
+        private readonly IProcessStripeEvents processStripe;
 
-        public CheckoutApiController(IEquipmentRepository equipmentRepositry, ISuplementRepository suplementRepository, IConfiguration _config, IMembershipTypeRepository membershipTypeRepository)
+        public CheckoutApiController(IEquipmentRepository equipmentRepositry, ISuplementRepository suplementRepository, IConfiguration _config, IMembershipTypeRepository membershipTypeRepository, IProcessStripeEvents processStripe)
         {
             this.equipmentRepositry = equipmentRepositry;
             this.suplementRepository = suplementRepository;
             this._config = _config;
             this.membershipTypeRepository = membershipTypeRepository;
+            this.processStripe = processStripe;
     }
 
         [HttpPost("create-checkout-session")]
@@ -33,7 +37,7 @@ namespace TeretanaApi.Controllers
             var lineItems = new List<SessionLineItemOptions>();
             foreach(var price in req.Prices.Keys)
             {
-                Console.WriteLine(price);
+         
                 lineItems.Add(new SessionLineItemOptions
                 {
                     Price = price,
@@ -49,7 +53,62 @@ namespace TeretanaApi.Controllers
                     "card",
                 },
                 Mode = "payment",
-                LineItems = lineItems
+                LineItems = lineItems,
+                ClientReferenceId = req.ClientReferenceId
+            };
+          
+            var service = new SessionService();
+            service.Create(options);
+            try
+            {
+                var session = await service.CreateAsync(options);
+                return new OkObjectResult(new CreateCheckoutSessionResponse
+                {
+                    SessionId = session.Id,
+                    PublicKey = _config.GetValue<string>("Stripe:PublishableKey")
+                });
+            }
+            catch (StripeException e)
+            {
+                Console.WriteLine(e.StripeError.Message);
+                return new BadRequestObjectResult(new ErrorResponse
+                {
+                    ErrorMessage = new ErrorMessage
+                    {
+                        Message = e.StripeError.Message,
+                    }
+                });
+            }
+        }
+
+        [HttpPost("create-checkout-session-membership")]
+        public async Task<IActionResult> CreateCheckoutSessionMembership([FromBody] CreateCheckoutSessionRequest req)
+        {
+            var lineItems = new List<SessionLineItemOptions>();
+            foreach (var price in req.Prices.Keys)
+            {
+
+                lineItems.Add(new SessionLineItemOptions
+                {
+                    Price = price,
+                    Quantity = req.Prices[price]
+                });
+            }
+            var metaData = new Dictionary<string, string>();
+            metaData.Add("m", "m");
+
+            var options = new SessionCreateOptions
+            {
+                SuccessUrl = req.SuccessUrl,
+                CancelUrl = req.FailureUrl,
+                PaymentMethodTypes = new List<string>
+                {
+                    "card",
+                },
+                Mode = "payment",
+                LineItems = lineItems,
+                ClientReferenceId = req.ClientReferenceId,
+                Metadata = metaData
             };
 
             var service = new SessionService();
@@ -89,6 +148,7 @@ namespace TeretanaApi.Controllers
                 var productOptions = new ProductCreateOptions
                 {
                     Name = e.Name,
+                    Description = "e"
                    
                 };
 
@@ -111,7 +171,7 @@ namespace TeretanaApi.Controllers
                 var productOptions = new ProductCreateOptions
                 {
                     Name = s.Name,
-                
+                    Description = "s"
                 };
 
                 var product = productService.Create(productOptions);
@@ -134,6 +194,7 @@ namespace TeretanaApi.Controllers
                 var productOptions = new ProductCreateOptions
                 {
                     Name = m.Name,
+                    Description = "m"
                  
                 };
 
@@ -153,7 +214,7 @@ namespace TeretanaApi.Controllers
             await equipmentRepositry.SaveChangesAsync();
             return new OkResult();
         }
-        /*
+        
         // POST api/<PaymentsController>/webhook
         [HttpPost("webhook")]
         public async Task<IActionResult> WebHook()
@@ -173,8 +234,24 @@ namespace TeretanaApi.Controllers
                 {
                     var payment = stripeEvent.Data.Object as PaymentIntent;
                     //Do stuff
+                    Console.WriteLine(payment);
                     Console.WriteLine(payment.Customer);
                     Console.WriteLine(payment.CustomerId);
+                    
+                }else if(stripeEvent.Type == Events.CheckoutSessionCompleted)
+                {
+                    var session = stripeEvent.Data.Object as Stripe.Checkout.Session;
+                    var service = new SessionService();
+                    StripeList<LineItem> lineItems = service.ListLineItems(session.Id);
+                    if (session.Metadata.ContainsKey("m"))
+                    {
+                        await processStripe.addMembership(session, lineItems.ElementAt(0));
+                    }
+                    else
+                    {
+                        await processStripe.createBasket(session, lineItems);
+                    }
+                    
                 }
                 // ... handle other event types
                 else
@@ -190,7 +267,9 @@ namespace TeretanaApi.Controllers
                 return BadRequest();
             }
         }
-        */ 
+
+        
+        
         
 
     }

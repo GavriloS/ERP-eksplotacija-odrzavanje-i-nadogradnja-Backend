@@ -2,7 +2,7 @@
 {
     public class SuplementUpdateDto
     {
-        public Guid Id { get; set; }
+        public Guid SuplementId { get; set; } 
 
         public String Name { get; set; }
         public String Description { get; set; }
@@ -11,6 +11,6 @@
         public double Price { get; set; }
         public string PriceId { get; set; }
         public string ProductId { get; set; }
-        public Guid TypeId { get; set; }
+        public Guid SuplementTypeId { get; set; }
     }
 }

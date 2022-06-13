@@ -10,7 +10,7 @@ namespace TeretanaApi.Controllers
     [ApiController]
     [Route("api/user")]
     [Produces("application/json")]
-    public class UserController
+    public class UserController: ControllerBase
     {
         private readonly IUserRepository userRepository;
         private readonly IMapper mapper;
@@ -119,5 +119,19 @@ namespace TeretanaApi.Controllers
             }
         }
 
+
+        [HttpGet("trainers")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<List<UserDto>>> GetTrainers()
+        {
+            var trainers = await userRepository.GetTrainers();
+            if (trainers == null || trainers.Count == 0)
+            {
+                return new NoContentResult();
+            }
+            return Ok(mapper.Map<List<UserDto>>(trainers));
+        }
+       }
     }
-}

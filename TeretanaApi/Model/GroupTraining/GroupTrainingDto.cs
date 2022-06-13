@@ -5,9 +5,14 @@
         public Guid GroupTrainingId { get; set; } = Guid.NewGuid();
         public DateTime DateTimeOfGroupTraining { get; set; }
         public Guid GroupTrainingTypeId { get; set; }
-        public TeretanaApi.Entities.GroupTrainingType GroupTrainingType { get; set; }
- 
-        public TeretanaApi.Entities.User Trainer { get; set; }
-        public virtual List<TeretanaApi.Entities.User> Users { get; set; }
+        public string Name { get; set; }
+        public int Duration { get; set; }
+        public string TrainerName { get; set; }
+        public Guid TrainerId { get; set; }
+     
+        public int ActualUserCount { get; set; }
+        public int UserCapacity { get; set; }
+        public List<Guid> Users { get; set; }
+
     }
 }

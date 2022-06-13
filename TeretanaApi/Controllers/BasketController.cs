@@ -4,13 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 using TeretanaApi.Data.Interfaces;
 using TeretanaApi.Entities;
 using TeretanaApi.Model.Basket;
+using TeretanaApi.Model.Chart;
 
 namespace TeretanaApi.Controllers
 {
     [ApiController]
     [Route("api/basket")]
     [Produces("application/json")]
-    public class BasketController
+    public class BasketController : ControllerBase
     {
         private readonly IBasketRepository basketRepository;
         private readonly IMapper mapper;
@@ -164,6 +165,40 @@ namespace TeretanaApi.Controllers
             }
         }
 
+        [HttpGet("productCountPerMonth")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [AllowAnonymous]
+        public async Task<ActionResult<ProductCountPerMonth>> GetBasketCountPerMonth()
+        {
+            var baskets = await basketRepository.GetBasketsAsync();
+
+            if (baskets == null || baskets.Count == 0)
+            {
+                return new NoContentResult();
+            }
+            baskets.Sort((x, y) => DateTime.Compare(x.DateTimeOfPurchase, y.DateTimeOfPurchase));
+            int[] equipmentArray = new int[12];
+            int[] suplementArray = new int[12];
+
+            foreach (var b in baskets)
+            {
+                foreach (var e in b.Equipments)
+                {
+                    equipmentArray[b.DateTimeOfPurchase.Month - 1] += e.Quantity;
+                }
+
+                foreach (var s in b.Suplements)
+                {
+                    suplementArray[b.DateTimeOfPurchase.Month - 1] += s.Quantity;
+                }
+            }
+            var p = new ProductCountPerMonth();
+            p.equipments = new List<int>(equipmentArray);
+            p.suplements = new List<int>(suplementArray);
+            return Ok(p);
+        }
+
         [HttpPut]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -189,6 +224,8 @@ namespace TeretanaApi.Controllers
             }
         }
 
-     
+       
+
+
     }
 }
